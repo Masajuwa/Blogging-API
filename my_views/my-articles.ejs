@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Articles</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    select {
+      padding: 8px;
+      margin-right: 10px;
+      font-size: 14px;
+    }
+
+    .article-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .article-item {
+      background-color: #fff;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-left: 5px solid #007BFF; /* Add a left border for demarcation */
+      border-right: 5px solid #007BFF; /* Add a right border for symmetry */
+    }
+
+    .article-item h2 {
+      color: #333;
+      font-size: 1.6em;
+      margin: 0;
+    }
+
+    .article-item a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    .article-item a:hover {
+      text-decoration: underline;
+    }
+
+    .article-item p {
+      margin: 10px 0;
+      color: #555;
+    }
+
+    .article-item small {
+      color: #777;
+    }
+
+    .pagination {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .pagination a {
+      padding: 8px 15px;
+      background-color: #007BFF;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      margin: 0 5px;
+    }
+
+    .pagination a:hover {
+      background-color: #0056b3;
+    }
+
+    .pagination span {
+      margin: 0 5px;
+      font-size: 1.1em;
+    }
+
+    .button-container a {
+      display: inline-block;
+      padding: 10px 15px;
+      background-color: #28a745;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .button-container a:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome, <%= user.first_name %>! Here are your articles:</h1>
+
+  <!-- Filter by state -->
+  <form method="GET" action="/blogs/my-articles">
+    <label for="state">Filter by State:</label>
+    <select name="state" id="state" onchange="this.form.submit()">
+      <option value="" <%= state === 'all' ? 'selected' : '' %>>All</option>
+      <option value="draft" <%= state === 'draft' ? 'selected' : '' %>>Draft</option>
+      <option value="published" <%= state === 'published' ? 'selected' : '' %>>Published</option>
+    </select>
+    <input type="hidden" name="page" value="1">
+  </form>
+
+  <!-- Display articles -->
+  <% if (articles.length > 0) { %>
+    <ul class="article-list">
+      <% articles.forEach(article => { %>
+        <li class="article-item">
+          <h2><%= article.title %></h2>
+          <a href="/blogs/<%= article._id %>">Go to Article</a> |
+          <div>
+            <p><strong>Read Count:</strong> <%= article.read_count %></p>
+            <p><strong>Reading Time:</strong> <%= article.reading_time %> minutes</p>
+          </div>      
+          <p><%= article.content %></p>
+          <small>State: <%= article.state %></small>
+          <br>
+          <small>Published on: <%= article.createdAt.toDateString() %></small>
+        </li>
+      <% }); %>
+    </ul>
+
+    <!-- Pagination Controls -->
+    <div class="pagination">
+      <% if (currentPage > 1) { %>
+        <a href="/blogs/my-articles?page=<%= currentPage - 1 %> & state=<%= state %>">Previous</a>
+      <% } %>
+      
+      <span>Page <%= currentPage %> of <%= totalPages %></span>
+
+      <% if (currentPage < totalPages) { %>
+        <a href="/blogs/my-articles?page=<%= currentPage + 1 %>&state=<%= state %>">Next</a>
+      <% } %>
+    </div>
+  <% } else { %>
+    <p>No articles found in the "<%= state %>" state.</p>
+  <% } %>
+
+  <div class="button-container">
+    <a href="/blogs/createArticle">Create a New Article</a>
+  </div>
+
+  <a href="/blogs/published">Go to Published Articles page</a>
+</body>
+</html>

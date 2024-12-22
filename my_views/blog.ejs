@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= blog.title %></title>
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007BFF;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1em;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .author-info {
+            margin-bottom: 30px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .author-info p {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .button-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .button-container a, .button-container button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .button-container a:hover, .button-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .button-container button {
+            display: inline-block;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 30px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .back-link a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><%= blog.title %></h1>
+        <p><%= blog.description %></p>
+
+        <div class="author-info">
+            <h3>Author: <%= blog.author.first_name %> <%= blog.author.last_name %></h3>
+            <p>Email: <%= blog.author.email %></p>
+        </div>
+
+        <div>
+            <p><%= blog.body %></p>
+        </div>
+
+        <div>
+            <p><strong>Read Count:</strong> <%= blog.read_count %></p>
+            <p><strong>Reading Time:</strong> <%= blog.reading_time %> minutes</p>
+        </div>
+
+        <div class="button-container">
+            <a href="/blogs/<%= blog._id %>/updateArticle">Update</a>
+            <form action="/blogs/<%= blog._id %>?_method=DELETE" method="POST" style="display:inline;">
+                <button type="submit" onclick="return confirm('Are you sure you want to delete this article?');">Delete</button>
+            </form>
+        </div>
+
+        <div class="back-link">
+            <a href="/blogs/published">Back to all published blogs</a>
+        </div>
+    </div>
+</body>
+</html>

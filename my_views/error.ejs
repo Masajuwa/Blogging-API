@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+      border-radius: 5px;
+    }
+    .message {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .error-details {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #856404;
+      background-color: #fff3cd;
+      padding: 10px;
+      border: 1px solid #ffeeba;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Error</h1>
+    <p class="message"><%= message %></p>
+    <% if (error) { %>
+      <div class="error-details">
+        <strong>Error Details:</strong>
+        <pre><%= error %></pre>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>

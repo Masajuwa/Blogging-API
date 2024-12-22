@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create a New Article</title>
+</head>
+<body>
+  <h1>Create a New Blog Post</h1>
+
+  <form action="/blogs/create" method="POST">
+    <label for="title">Title:</label><br>
+    <input type="text" id="title" name="title" required><br><br>
+
+    <label for="description">Description:</label><br>
+    <textarea id="description" name="description" rows="2" cols="60" required></textarea><br><br>
+
+    <label for="body">Body:</label><br>
+    <textarea id="body" name="body" rows="7" cols="80" required></textarea><br><br>
+
+    <label for="tags">Tags (comma separated):</label><br>
+    <input type="text" id="tags" name="tags" required><br><br>
+
+    <label for="state">State:</label><br>
+    <select name="state" id="state">
+      <option value="draft">Draft</option>
+      <option value="published">Published</option>
+    </select><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <a href="/blogs/my-articles">Back to My Articles</a>
+  <a href="/blogs/published">Go to the Published Articles page</a>
+</body>
+</html>

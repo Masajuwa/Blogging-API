@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Article</title>
+</head>
+<body>
+    <h1>Update Article</h1>
+    <form action="/blogs/<%= blog._id %>/update?_method=PUT" method="POST">
+
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" value="<%= blog.title %>" required>
+        <br><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="2" cols="60" required><%= blog.description %></textarea>
+        <br><br>
+
+        <label for="body">Body:</label>
+        <textarea id="body" name="body" rows="10" cols="80" required><%= blog.body %></textarea>
+        <br><br>
+
+        <label for="tags">Tags (comma-separated):</label>
+        <input type="text" id="tags" name="tags" value="<%= blog.tags.join(', ') %>">
+        <br><br>
+
+        <label for="state">State:</label>
+        <select id="state" name="state" required>
+            <option value="draft" <%= blog.state === 'draft' ? 'selected' : '' %>>Draft</option>
+            <option value="published" <%= blog.state === 'published' ? 'selected' : '' %>>Published</option>
+        </select>
+        <br><br>
+
+        <button type="submit">Update Article</button>
+    </form>
+
+    <br>
+    <a href="/blogs/<%= blog._id %>">Cancel</a>
+</body>
+</html>
